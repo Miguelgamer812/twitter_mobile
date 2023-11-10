@@ -1,0 +1,1 @@
+export const Obtener_datos_exito = 'Obtener_datos_exito';
