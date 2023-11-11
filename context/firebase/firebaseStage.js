@@ -7,31 +7,33 @@ import { Obtener_datos_exito } from "../../types";
 //contular a la BD y realizar las configuraciones necesarias
 const FirebaseStage = props => {
     const inicialStage = {
-        datos: []
+        datos:[]
     }
     const [state, dispach] = useReducer(FirebaseReducer, inicialStage)
     const obtenerdatos = () => {
-        firebase.db
-            .collection('plato').where('existencia', '==', true).onSnapshot(manejarSnapshot);
+        firebase.db.collection('plato').where('categoria', '==', 'Publico').onSnapshot(manejarSnapshot);
         function manejarSnapshot(snapshot) {
+            console.log('Snapshot recibido:', snapshot);
             let plato = snapshot.docs.map(doc => {
                 return {
                     id: doc.id,
                     ...doc.data()
                 }
             });
+            console.log('Platos obtenidos:', plato);
             dispach({
-                type: Obtener_datos_exito,
-                playload: plato
+                type: Obtener_datos_exito, 
+                payload: plato 
             })
+            
         }
-    }
+    };
     return (
         <FirebaseContext.Provider
             value={{
                 datos: state.datos,
                 firebase,
-                obtenerdatos
+                obtenerdatos,
             }}
         >
             {props.children}

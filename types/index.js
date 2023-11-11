@@ -1,1 +1,2 @@
-export const Obtener_datos_exito = 'Obtener_datos_exito';
+// types.js
+export const Obtener_datos_exito = 'OBTENER_DATOS_EXITO';
